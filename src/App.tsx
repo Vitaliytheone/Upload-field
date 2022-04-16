@@ -1,5 +1,7 @@
+import UploadButton from "./components";
+
 function App() {
-    return <div className="App">Upload field</div>;
+    return <UploadButton />;
 }
 
 export default App;
