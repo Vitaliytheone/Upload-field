@@ -1,7 +1,76 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div``
+export const Wrapper = styled.div`
+    position: relative ;
+    display: inline-block ;
+    border-radius: 6px;
+    background-color: #fff;
+
+    @media screen and (min-width: 769px) {
+        border: 2px dashed #3498db;
+        padding: 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+`
 
 export const FileInput = styled.input`
+    font-size: 18px;
+    display: block;
+    width: 100%;
+    border: none;
+    text-transform: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+`
 
+export const Button = styled.button`
+  background-color: transparent;
+  border: 2px solid #3498db;
+  cursor: pointer;
+  padding: 24px 36px;
+  font-size: 20px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 6px;
+  color: #3498db;
+  transition: color 250ms ease-in-out;
+  width: 220px;
+  position: relative;
+  z-index: 1;
+
+  &:after {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%); 
+    width: 0;
+    height: 100%;
+    background: #3498db;
+    z-index: -1;
+    transition: width 250ms ease-in-out;
+  }
+
+  &:hover {
+    color: #fff;
+    outline: 0;
+    background: transparent;
+
+    &:after {
+      width: 100%;
+    }
+  }
+
+  &:focus {
+    outline: 0;
+    background: transparent;
+  }
 `
