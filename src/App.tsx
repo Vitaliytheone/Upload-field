@@ -1,7 +1,7 @@
-import { Button } from "./components";
+import { FileUpload } from "./components";
 
 function App() {
-    return <Button />;
+    return <FileUpload />;
 }
 
 export default App;
