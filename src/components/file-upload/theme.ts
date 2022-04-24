@@ -53,7 +53,7 @@ export const Button = styled.button`
     left: 50%;
     transform: translateX(-50%); 
     width: 0;
-    height: 100%;
+    height: 101%;
     background: #3498db;
     z-index: -1;
     transition: width 250ms ease-in-out;
