@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{isActive: boolean}>`
     position: relative ;
     display: inline-block ;
     border-radius: 6px;
