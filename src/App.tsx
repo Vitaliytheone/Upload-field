@@ -9,6 +9,7 @@ const Wrap = styled.div`
 function App() {
     return (
         <Wrap>
+            <div>File upload</div>
             <FileUpload />
         </Wrap>
     );
