@@ -20,11 +20,12 @@ const FileUpload = ({ multiple = true, maxSize }: TFileUpload) => {
         setDragActive(false);
     };
 
-    // const onFileUpload = (e: any) => {
-    //     console.info(e.target.files);
-    // };
+    const onFileUpload = (e: any) => {
+        console.info(e);
+    };
 
     const onClick = () => {
+        console.info("123");
         ref?.current?.click();
     };
 
@@ -34,7 +35,7 @@ const FileUpload = ({ multiple = true, maxSize }: TFileUpload) => {
         <Wrapper isActive={isActiveDrag}>
             <FileInput
                 ref={ref}
-                // onChange={onFileUpload}
+                onChange={onFileUpload}
                 // onClick={(e) => e.preventDefault()}
                 // onDragLeave={onDragLeave}
                 onDragEnter={onDragEnter}
