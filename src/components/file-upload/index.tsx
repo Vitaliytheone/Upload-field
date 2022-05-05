@@ -29,20 +29,21 @@ const FileUpload = ({ multiple = true, maxSize }: TFileUpload) => {
     //     console.info(e.target.files);
     // };
 
+    // async-await hack for rerender with a new value for input's click event
     const onClick = async () => {
         await setTrigBtn(true);
         ref?.current?.click();
     };
 
+    // clearing of button trigger
     const onMouseLeave = () => {
         setTrigBtn(false);
     };
 
+    // if trigger is false, do prevendtdefault
     const onClickInput = (e: React.MouseEvent<HTMLInputElement>) => {
         !trigBtn && e.preventDefault();
     };
-
-    console.info("render");
 
     return (
         <Wrapper isActive={isActiveDrag}>
