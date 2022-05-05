@@ -5,6 +5,7 @@ import { TFileUpload } from "./type";
 const FileUpload = ({ multiple = true, maxSize }: TFileUpload) => {
     const ref = useRef<HTMLInputElement>(null);
     const [isActiveDrag, setDragActive] = useState(false);
+    const [trigBtn, setTrigBtn] = useState(false);
     const [files, setFiles] = useState({});
 
     const onDragEnter = (e: any) => {
@@ -15,36 +16,53 @@ const FileUpload = ({ multiple = true, maxSize }: TFileUpload) => {
         setDragActive(true);
     };
 
+    const onMouseEnter = () => {
+        console.info(123132);
+    };
+
     const onDragLeave = (e: any) => {
-        console.info(e.target);
+        console.info(e);
         setDragActive(false);
     };
 
-    const onFileUpload = (e: any) => {
-        console.info(e);
-    };
+    // const onFileUpload = (e: any) => {
+    //     console.info(e.target.files);
+    // };
 
-    const onClick = () => {
-        console.info("123");
+    const onClick = async () => {
+        await setTrigBtn(true);
         ref?.current?.click();
     };
 
-    console.info(isActiveDrag);
+    const onMouseLeave = () => {
+        setTrigBtn(false);
+    };
+
+    const onClickInput = (e: React.MouseEvent<HTMLInputElement>) => {
+        !trigBtn && e.preventDefault();
+    };
+
+    console.info("render");
 
     return (
         <Wrapper isActive={isActiveDrag}>
             <FileInput
                 ref={ref}
-                onChange={onFileUpload}
+                // onChange={onFileUpload}
+                onClick={onClickInput}
                 // onClick={(e) => e.preventDefault()}
                 // onDragLeave={onDragLeave}
-                onDragEnter={onDragEnter}
-                onDragOver={onDragEnter}
+                // onDragEnter={onDragEnter}
+                // onDragOver={onDragEnter}
+                // onMouseEnter={onMouseEnter}
+                onDragStart={onDragEnter}
                 // onDrop={onDragLeave}
                 type="file"
-                // multiple={multiple}
+                multiple={multiple}
             />
-            <Button onClick={onClick}>Upload</Button>
+            <Button onMouseLeave={onMouseLeave} onClick={onClick}>
+                Upload
+            </Button>
         </Wrapper>
     );
 };
