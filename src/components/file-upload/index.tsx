@@ -45,6 +45,7 @@ const FileUpload = ({ multiple = true, maxSize }: TFileUpload) => {
         !trigBtn && e.preventDefault();
     };
 
+    console.info(files);
     return (
         <Wrapper isActive={isActiveDrag}>
             <FileInput
