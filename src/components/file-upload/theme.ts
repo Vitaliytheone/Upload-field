@@ -38,18 +38,9 @@ export const Button = styled.button`
   }
 
   &:hover {
-    color: #fff;
-    outline: 0;
-    background: transparent;
-
     &:after {
       width: 100%;
     }
-  }
-
-  &:focus {
-    outline: 0;
-    background: transparent;
   }
 `
 
@@ -71,7 +62,17 @@ export const Wrapper = styled.div<{isActive: boolean}>`
     ${Button} {
         color: ${({ isActive }) => getColor(isActive)};
         border-color: ${({ isActive }) => getColor(isActive)};
-    }
+
+          &:hover {
+            color: #fff;
+            outline: 0;
+            background: transparent;
+          }
+
+          &:focus {
+            outline: 0;
+            background: transparent;
+          }
 `
 
 export const FileInput = styled.input`
