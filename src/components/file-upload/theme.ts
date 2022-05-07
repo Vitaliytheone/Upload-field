@@ -1,9 +1,14 @@
+import { TInputValidation } from './type';
 import styled from "styled-components";
 
 const DEFAULT_BLUE = "#3498db";
 const HOVER_BLUE = "#02568f";
+const RED = "#d10d0d";
+const GREEN = "#64e222";
 
-const getColor = (isActive: boolean) => {
+const getColor = (isActive: boolean, validation: TInputValidation, isWrapBorder?: boolean) => {
+  if(validation.isError && isWrapBorder) return RED;
+  if(validation.isValid && isWrapBorder) return GREEN;
   return isActive ? HOVER_BLUE : DEFAULT_BLUE;
 }
 
@@ -21,7 +26,6 @@ export const Button = styled.button`
   transition: color 250ms ease-in-out;
   width: 220px;
   position: relative;
-  z-index: 1;
 
   &:after {
     content: "";
@@ -44,24 +48,26 @@ export const Button = styled.button`
   }
 `
 
-export const Wrapper = styled.div<{isActive: boolean}>`
-    position: relative ;
-    display: inline-block ;
+export const Wrapper = styled.div<{$isActive: boolean, $validation: TInputValidation}>`
+    position: relative;
+    display: inline-block;
     border-radius: 6px;
     background-color: #fff;
+    z-index: 2;
 
     @media screen and (min-width: 769px) {
         border: 2px dashed;
-        border-color: ${({ isActive }) => getColor(isActive)};
+        border-color: ${({ $isActive, $validation }) => getColor($isActive, $validation, true)};
         padding: 80px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        z-index: 3;
     }
 
     ${Button} {
-        color: ${({ isActive }) => getColor(isActive)};
-        border-color: ${({ isActive }) => getColor(isActive)};
+        color: ${({ $isActive, $validation }) => getColor($isActive, $validation)};
+        border-color: ${({ $isActive, $validation }) => getColor($isActive, $validation)};
 
           &:hover {
             color: #fff;

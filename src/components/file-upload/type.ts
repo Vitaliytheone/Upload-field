@@ -3,3 +3,8 @@ export type TFileUpload = {
     multiple?: boolean;
     maxSize?: any;
 }
+
+export type TInputValidation = {
+    isValid: boolean,
+    isError: boolean
+}

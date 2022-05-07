@@ -1,28 +1,34 @@
 import { useRef, useState } from "react";
 import { Wrapper, FileInput, Button } from "./theme";
 import { TFileUpload } from "./type";
+import { getFiles, getFilesSize } from "./helpers";
 
 const FileUpload = ({ multiple = true, maxSize, accept }: TFileUpload) => {
     const ref = useRef<HTMLInputElement>(null);
     const [isActiveDrag, setDragActive] = useState(false);
     const [trigBtn, setTrigBtn] = useState(false);
-    const [files, setFiles] = useState({});
+    const [files, setFiles] = useState([]);
+    const [validation, setValidation] = useState({ isValid: false, isError: false });
 
-    const onDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
+    // using preventDefault for IE
+    const onDragMove = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
+        setValidation({ isValid: false, isError: false });
         setDragActive(true);
     };
 
     const onDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
+        if (e.currentTarget.contains(e.relatedTarget as Node | null)) return;
         setDragActive(false);
     };
 
     const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         setDragActive(false);
-        // const files = fileListToArray(event.dataTransfer.files);
-        // onChange(files);
+        const files = getFiles(e.dataTransfer.files);
+        const size = getFilesSize(files);
+        console.info(size);
     };
 
     // const onFileUpload = (e: any) => {
@@ -45,14 +51,13 @@ const FileUpload = ({ multiple = true, maxSize, accept }: TFileUpload) => {
         !trigBtn && e.preventDefault();
     };
 
-    console.info(isActiveDrag);
     return (
         <Wrapper
-            isActive={isActiveDrag}
+            $isActive={isActiveDrag}
+            $validation={validation}
             onDrop={onDrop}
-            onDragOver={onDragEnter}
             onDragLeave={onDragLeave}
-            onDragEnter={onDragEnter}
+            onDragEnter={onDragMove}
         >
             <FileInput
                 ref={ref}
@@ -66,7 +71,7 @@ const FileUpload = ({ multiple = true, maxSize, accept }: TFileUpload) => {
                 accept={accept}
                 multiple={multiple}
             />
-            <Button onDragEnter={onDragEnter} onMouseLeave={onMouseLeave} onClick={onClick}>
+            <Button onMouseLeave={onMouseLeave} onClick={onClick}>
                 Upload
             </Button>
         </Wrapper>
