@@ -9,19 +9,13 @@ const FileUpload = ({ multiple = true, maxSize }: TFileUpload) => {
     const [files, setFiles] = useState({});
 
     const onDragEnter = (e: any) => {
-        console.info(e);
-        // e.preventDefault();
-        // e.stopPropagation();
-        console.info(e);
+        e.preventDefault();
         setDragActive(true);
     };
 
-    const onMouseEnter = () => {
-        console.info(123132);
-    };
-
     const onDragLeave = (e: any) => {
-        console.info(e);
+        e.preventDefault();
+        console.info("12321");
         setDragActive(false);
     };
 
@@ -45,24 +39,21 @@ const FileUpload = ({ multiple = true, maxSize }: TFileUpload) => {
         !trigBtn && e.preventDefault();
     };
 
-    console.info(files);
+    console.info(isActiveDrag);
     return (
-        <Wrapper isActive={isActiveDrag}>
+        <Wrapper isActive={isActiveDrag} onDragOver={onDragEnter} onDragLeave={onDragLeave} onDragEnter={onDragEnter}>
             <FileInput
                 ref={ref}
                 // onChange={onFileUpload}
                 onClick={onClickInput}
                 // onClick={(e) => e.preventDefault()}
-                // onDragLeave={onDragLeave}
-                // onDragEnter={onDragEnter}
                 // onDragOver={onDragEnter}
                 // onMouseEnter={onMouseEnter}
-                onDragStart={onDragEnter}
                 // onDrop={onDragLeave}
                 type="file"
                 multiple={multiple}
             />
-            <Button onMouseLeave={onMouseLeave} onClick={onClick}>
+            <Button onDragEnter={onDragEnter} onMouseLeave={onMouseLeave} onClick={onClick}>
                 Upload
             </Button>
         </Wrapper>
