@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const DEFAULT_BLUE = "#3498db";
 const HOVER_BLUE = "#02568f";
-const RED = "#d10d0d";
+const RED = "#fe0d0d";
 const GREEN = "#64e222";
 
 const getColor = (isActive: boolean, validation: TInputValidation, isWrapBorder?: boolean) => {

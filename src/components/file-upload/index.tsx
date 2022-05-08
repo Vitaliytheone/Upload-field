@@ -3,11 +3,13 @@ import { Wrapper, FileInput, Button } from "./theme";
 import { TFileUpload } from "./type";
 import { getFiles, getFilesSize } from "./helpers";
 
-const FileUpload = ({ multiple = true, maxSize, accept }: TFileUpload) => {
+const FileUpload = ({ multiple = true, maxSize = 7000000, accept }: TFileUpload) => {
+    // maxSize in bytes
+
     const ref = useRef<HTMLInputElement>(null);
     const [isActiveDrag, setDragActive] = useState(false);
     const [trigBtn, setTrigBtn] = useState(false);
-    const [files, setFiles] = useState([]);
+    const [files, setFiles] = useState<File[]>([]);
     const [validation, setValidation] = useState({ isValid: false, isError: false });
 
     // using preventDefault for IE
@@ -28,7 +30,12 @@ const FileUpload = ({ multiple = true, maxSize, accept }: TFileUpload) => {
         setDragActive(false);
         const files = getFiles(e.dataTransfer.files);
         const size = getFilesSize(files);
-        console.info(size);
+        if (size <= maxSize) {
+            setFiles(files);
+            setValidation({ ...validation, isValid: true });
+        } else {
+            setValidation({ ...validation, isError: true });
+        }
     };
 
     // const onFileUpload = (e: any) => {
@@ -51,6 +58,8 @@ const FileUpload = ({ multiple = true, maxSize, accept }: TFileUpload) => {
         !trigBtn && e.preventDefault();
     };
 
+    console.info(files);
+
     return (
         <Wrapper
             $isActive={isActiveDrag}
@@ -64,9 +73,6 @@ const FileUpload = ({ multiple = true, maxSize, accept }: TFileUpload) => {
                 // onChange={onFileUpload}
                 onClick={onClickInput}
                 // onClick={(e) => e.preventDefault()}
-                // onDragOver={onDragEnter}
-                // onMouseEnter={onMouseEnter}
-                // onDrop={onDragLeave}
                 type="file"
                 accept={accept}
                 multiple={multiple}
