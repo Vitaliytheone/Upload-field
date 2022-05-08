@@ -1,15 +1,14 @@
-import { useCallback, Dispatch, SetStateAction } from "react";
+import { useCallback } from "react";
 import { bytesToMb, getFiles, getFilesSize } from "../helpers";
+import { THook } from '../type';
 
-type TOpenAlert = Dispatch<SetStateAction<boolean>>;
-
-export const useFilesUpdate = ({maxSize, setValidation, setFiles}:any) => {
+export const useFilesUpdate = ({maxSize, setValidation, setFiles}: THook) => {
 
     return useCallback((files: FileList) => {
             const parsedFiles = getFiles(files);
             const size = getFilesSize(parsedFiles);
             if (bytesToMb(size) <= maxSize) {
-                setFiles(files);
+                setFiles(parsedFiles);
                 setValidation({ isError: false, isValid: true });
             } else {
                 setValidation({  isError: true, isValid: false });
