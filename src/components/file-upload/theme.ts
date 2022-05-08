@@ -1,10 +1,10 @@
 import { TInputValidation } from './type';
 import styled from "styled-components";
 
-const DEFAULT_BLUE = "#3498db";
-const HOVER_BLUE = "#02568f";
-const RED = "#fe0d0d";
-const GREEN = "#64e222";
+export const DEFAULT_BLUE = "#3498db";
+export const HOVER_BLUE = "#02568f";
+export const GREEN = "#64e222";
+export const RED = "#fe0d0d";
 
 const getColor = (isActive: boolean, validation: TInputValidation, isWrapBorder?: boolean) => {
   if(validation.isError && isWrapBorder) return RED;
@@ -79,6 +79,11 @@ export const Wrapper = styled.div<{$isActive: boolean, $validation: TInputValida
             outline: 0;
             background: transparent;
           }
+    }
+
+    & + span {
+      margin-top: 12px;
+    }
 `
 
 export const FileInput = styled.input`

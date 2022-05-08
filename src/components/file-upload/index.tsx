@@ -1,10 +1,11 @@
 import { useRef, useState } from "react";
-import { Wrapper, FileInput, Button } from "./theme";
+import { Wrapper, FileInput, Button, RED } from "./theme";
 import { TFileUpload } from "./type";
-import { getFiles, getFilesSize } from "./helpers";
+import { getFiles, getFilesSize, bytesToMb } from "./helpers";
+import Text from "../text";
 
-const FileUpload = ({ multiple = true, maxSize = 7000000, accept }: TFileUpload) => {
-    // maxSize in bytes
+const FileUpload = ({ multiple = true, maxSize = 5, withTextError = true, accept }: TFileUpload) => {
+    // maxSize in mb
 
     const ref = useRef<HTMLInputElement>(null);
     const [isActiveDrag, setDragActive] = useState(false);
@@ -29,8 +30,10 @@ const FileUpload = ({ multiple = true, maxSize = 7000000, accept }: TFileUpload)
         e.preventDefault();
         setDragActive(false);
         const files = getFiles(e.dataTransfer.files);
+        console.info(files);
         const size = getFilesSize(files);
-        if (size <= maxSize) {
+        console.info(bytesToMb(size));
+        if (bytesToMb(size) <= maxSize) {
             setFiles(files);
             setValidation({ ...validation, isValid: true });
         } else {
@@ -61,26 +64,29 @@ const FileUpload = ({ multiple = true, maxSize = 7000000, accept }: TFileUpload)
     console.info(files);
 
     return (
-        <Wrapper
-            $isActive={isActiveDrag}
-            $validation={validation}
-            onDrop={onDrop}
-            onDragLeave={onDragLeave}
-            onDragEnter={onDragMove}
-        >
-            <FileInput
-                ref={ref}
-                // onChange={onFileUpload}
-                onClick={onClickInput}
-                // onClick={(e) => e.preventDefault()}
-                type="file"
-                accept={accept}
-                multiple={multiple}
-            />
-            <Button onMouseLeave={onMouseLeave} onClick={onClick}>
-                Upload
-            </Button>
-        </Wrapper>
+        <>
+            <Wrapper
+                $isActive={isActiveDrag}
+                $validation={validation}
+                onDrop={onDrop}
+                onDragLeave={onDragLeave}
+                onDragEnter={onDragMove}
+            >
+                <FileInput
+                    ref={ref}
+                    // onChange={onFileUpload}
+                    onClick={onClickInput}
+                    // onClick={(e) => e.preventDefault()}
+                    type="file"
+                    accept={accept}
+                    multiple={multiple}
+                />
+                <Button onMouseLeave={onMouseLeave} onClick={onClick}>
+                    Upload
+                </Button>
+            </Wrapper>
+            {withTextError && <Text color={RED}>File size is larger than maximum ({maxSize} mb)</Text>}
+        </>
     );
 };
 
