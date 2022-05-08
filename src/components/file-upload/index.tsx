@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
+import { useFilesUpdate } from "./hooks/useFilesUpdate";
 import { Wrapper, FileInput, Button, RED } from "./theme";
 import { TFileUpload } from "./type";
 import { getFiles, getFilesSize, bytesToMb } from "./helpers";
@@ -12,9 +13,10 @@ const FileUpload = ({ multiple = true, maxSize = 5, withTextError = true, accept
     const [trigBtn, setTrigBtn] = useState(false);
     const [files, setFiles] = useState<File[]>([]);
     const [validation, setValidation] = useState({ isValid: false, isError: false });
+    const updateFiles = useFilesUpdate({ maxSize, setValidation, setFiles });
 
     // using preventDefault for IE
-    const onDragMove = (e: React.DragEvent<HTMLDivElement>) => {
+    const onDragMove = (e: React.DragEvent<HTMLDivElement> | any) => {
         e.preventDefault();
         setValidation({ isValid: false, isError: false });
         setDragActive(true);
@@ -26,24 +28,15 @@ const FileUpload = ({ multiple = true, maxSize = 5, withTextError = true, accept
         setDragActive(false);
     };
 
-    const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    const onDrop = (e: React.DragEvent<HTMLDivElement> | any) => {
         e.preventDefault();
         setDragActive(false);
-        const files = getFiles(e.dataTransfer.files);
-        console.info(files);
-        const size = getFilesSize(files);
-        console.info(bytesToMb(size));
-        if (bytesToMb(size) <= maxSize) {
-            setFiles(files);
-            setValidation({ ...validation, isValid: true });
-        } else {
-            setValidation({ ...validation, isError: true });
-        }
+        updateFiles(e.dataTransfer.files);
     };
 
-    // const onFileUpload = (e: any) => {
-    //     console.info(e.target.files);
-    // };
+    const onFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.info(e);
+    };
 
     // async-await hack for rerender with a new value for input's click event
     const onClick = async () => {
@@ -73,19 +66,20 @@ const FileUpload = ({ multiple = true, maxSize = 5, withTextError = true, accept
                 onDragEnter={onDragMove}
             >
                 <FileInput
-                    ref={ref}
-                    // onChange={onFileUpload}
-                    onClick={onClickInput}
-                    // onClick={(e) => e.preventDefault()}
                     type="file"
+                    ref={ref}
+                    onChange={onFileUpload}
+                    onClick={onClickInput}
                     accept={accept}
                     multiple={multiple}
                 />
-                <Button onMouseLeave={onMouseLeave} onClick={onClick}>
+                <Button onDragEnter={onDragMove} onDrop={onDrop} onMouseLeave={onMouseLeave} onClick={onClick}>
                     Upload
                 </Button>
             </Wrapper>
-            {withTextError && <Text color={RED}>File size is larger than maximum ({maxSize} mb)</Text>}
+            {withTextError && validation.isError && (
+                <Text color={RED}>File size is larger than maximum ({maxSize} mb)</Text>
+            )}
         </>
     );
 };

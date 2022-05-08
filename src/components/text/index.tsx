@@ -5,8 +5,7 @@ type TText = {
     color: string;
 };
 
-const TextStyled = styled.span<{ $color: string }>`
-    display: inline-block;
+const TextStyled = styled.div<{ $color: string }>`
     font-size: 18px;
     color: ${({ $color }) => $color};
 `;

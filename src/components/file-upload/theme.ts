@@ -26,6 +26,7 @@ export const Button = styled.button`
   transition: color 250ms ease-in-out;
   width: 220px;
   position: relative;
+  z-index: 1;
 
   &:after {
     content: "";
@@ -53,7 +54,6 @@ export const Wrapper = styled.div<{$isActive: boolean, $validation: TInputValida
     display: inline-block;
     border-radius: 6px;
     background-color: #fff;
-    z-index: 2;
 
     @media screen and (min-width: 769px) {
         border: 2px dashed;
@@ -81,7 +81,7 @@ export const Wrapper = styled.div<{$isActive: boolean, $validation: TInputValida
           }
     }
 
-    & + span {
+    & + div {
       margin-top: 12px;
     }
 `
