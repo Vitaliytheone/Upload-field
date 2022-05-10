@@ -7,6 +7,7 @@ const List = ({ files, withTitle }: TList) => {
             {!!files.length && withTitle && <TextStyled>Uploaded files:</TextStyled>}
             <Wrapper>
                 {files.map((item, idx) => {
+                    console.info(item);
                     return <div key={idx}>{12}</div>;
                 })}
             </Wrapper>
