@@ -1,5 +1,17 @@
-const List = () => {
-    return <div>List</div>;
+import { Wrapper, TextStyled } from "./theme";
+import { TList } from "./type";
+
+const List = ({ files, withTitle }: TList) => {
+    return (
+        <>
+            {!!files.length && withTitle && <TextStyled>Uploaded files:</TextStyled>}
+            <Wrapper>
+                {files.map((item, idx) => {
+                    return <div key={idx}>{12}</div>;
+                })}
+            </Wrapper>
+        </>
+    );
 };
 
 export default List;

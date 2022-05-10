@@ -2,16 +2,14 @@ import React, { useRef, useState } from "react";
 import { useFilesUpdate } from "./hooks/useFilesUpdate";
 import { Wrapper, FileInput, Button, RED } from "./theme";
 import { TFileUpload } from "./type";
-import { getFiles, getFilesSize, bytesToMb } from "./helpers";
-import Text from "../text";
+import { Text } from "../../components";
 
-const FileUpload = ({ multiple = true, maxSize = 5, withTextError = true, accept }: TFileUpload) => {
+const FileUpload = ({ files, setFiles, multiple = true, maxSize = 5, withTextError = true, accept }: TFileUpload) => {
     // maxSize in mb
 
     const ref = useRef<HTMLInputElement>(null);
     const [isActiveDrag, setDragActive] = useState(false);
     const [trigBtn, setTrigBtn] = useState(false);
-    const [files, setFiles] = useState<File[]>([]);
     const [validation, setValidation] = useState({ isValid: false, isError: false });
     const updateFiles = useFilesUpdate({ maxSize, setValidation, setFiles });
 

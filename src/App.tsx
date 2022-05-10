@@ -1,4 +1,5 @@
-import { FileUpload } from "./components";
+import { useState } from "react";
+import { FileUpload, List } from "./components";
 import styled from "styled-components";
 
 const Wrap = styled.div`
@@ -7,9 +8,12 @@ const Wrap = styled.div`
 `;
 
 function App() {
+    const [files, setFiles] = useState<File[]>([]);
+
     return (
         <Wrap>
-            <FileUpload />
+            <FileUpload files={files} setFiles={setFiles} />
+            <List files={files} withTitle />
         </Wrap>
     );
 }
