@@ -44,7 +44,7 @@ export const Button = styled.button`
 
   &:hover {
     &:after {
-      width: 100%;
+      width: 100.2%;
     }
   }
 `
