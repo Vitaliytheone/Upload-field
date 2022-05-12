@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Text from '../text';
 
 export const Wrapper = styled.div`
+    margin: 0 -12px;
     display: flex;
 `
 

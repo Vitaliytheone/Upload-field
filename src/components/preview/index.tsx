@@ -1,8 +1,9 @@
 import { memo } from "react";
+import { Wrap } from "./theme";
 
 const Preview = ({ file }: any) => {
-    console.info(file);
-    return <div>Preview</div>;
+    const { name } = file;
+    return <Wrap>{name}</Wrap>;
 };
 
 export default memo(Preview);

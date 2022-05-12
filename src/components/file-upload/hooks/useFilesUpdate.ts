@@ -2,7 +2,8 @@ import { useCallback } from "react";
 import { bytesToMb, getFiles, getFilesSize } from "../helpers";
 import { THook } from '../type';
 
-export const useFilesUpdate = ({maxSize, setValidation, setFiles}: THook) => {
+export const useFilesUpdate = ({maxSize, setValidation, files, setFiles}: THook) => {
+    const newFiles = [...files];
 
     return useCallback((files: FileList) => {
             const parsedFiles = getFiles(files);

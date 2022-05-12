@@ -11,7 +11,7 @@ const FileUpload = ({ files, setFiles, multiple = true, maxSize = 5, withTextErr
     const [isActiveDrag, setDragActive] = useState(false);
     const [trigBtn, setTrigBtn] = useState(false);
     const [validation, setValidation] = useState({ isValid: false, isError: false });
-    const updateFiles = useFilesUpdate({ maxSize, setValidation, setFiles });
+    const updateFiles = useFilesUpdate({ maxSize, setValidation, files, setFiles });
 
     // using preventDefault for IE
     const onDragMove = (e: React.DragEvent<HTMLDivElement>) => {
