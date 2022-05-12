@@ -14,7 +14,7 @@ const FileUpload = ({ files, setFiles, multiple = true, maxSize = 5, withTextErr
     const updateFiles = useFilesUpdate({ maxSize, setValidation, setFiles });
 
     // using preventDefault for IE
-    const onDragMove = (e: React.DragEvent<HTMLDivElement> | any) => {
+    const onDragMove = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         setValidation({ isValid: false, isError: false });
         setDragActive(true);
@@ -26,14 +26,18 @@ const FileUpload = ({ files, setFiles, multiple = true, maxSize = 5, withTextErr
         setDragActive(false);
     };
 
-    const onDrop = (e: React.DragEvent<HTMLDivElement> | any) => {
+    const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         setDragActive(false);
         updateFiles(e.dataTransfer.files);
     };
 
+    const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+    };
+
     const onFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.info(e);
+        updateFiles(e.target.files!);
     };
 
     // async-await hack for rerender with a new value for input's click event
@@ -62,6 +66,7 @@ const FileUpload = ({ files, setFiles, multiple = true, maxSize = 5, withTextErr
                 onDrop={onDrop}
                 onDragLeave={onDragLeave}
                 onDragEnter={onDragMove}
+                onDragOver={onDragOver}
             >
                 <FileInput
                     type="file"
@@ -71,7 +76,7 @@ const FileUpload = ({ files, setFiles, multiple = true, maxSize = 5, withTextErr
                     accept={accept}
                     multiple={multiple}
                 />
-                <Button onDragEnter={onDragMove} onDrop={onDrop} onMouseLeave={onMouseLeave} onClick={onClick}>
+                <Button onClick={onClick} onMouseLeave={onMouseLeave}>
                     Upload
                 </Button>
             </Wrapper>

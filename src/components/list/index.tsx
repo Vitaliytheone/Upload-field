@@ -1,5 +1,6 @@
 import { Wrapper, TextStyled } from "./theme";
 import { TList } from "./type";
+import Preview from "../preview";
 
 const List = ({ files, withTitle }: TList) => {
     return (
@@ -7,8 +8,8 @@ const List = ({ files, withTitle }: TList) => {
             {!!files.length && withTitle && <TextStyled>Uploaded files:</TextStyled>}
             <Wrapper>
                 {files.map((item, idx) => {
-                    console.info(item);
-                    return <div key={idx}>{12}</div>;
+                    console.info(item.name);
+                    return <Preview key={idx} file={item} />;
                 })}
             </Wrapper>
         </>

@@ -1,7 +1,8 @@
-import React from "react";
+import { memo } from "react";
 
-const Preview = () => {
+const Preview = ({ file }: any) => {
+    console.info(file);
     return <div>Preview</div>;
 };
 
-export default Preview;
+export default memo(Preview);
