@@ -3,13 +3,11 @@ import { bytesToMb, getFiles, getFilesSize } from "../helpers";
 import { THook } from '../type';
 
 export const useFilesUpdate = ({maxSize, setValidation, files, setFiles}: THook) => {
-    const newFiles = [...files];
-
     return useCallback((files: FileList) => {
             const parsedFiles = getFiles(files);
             const size = getFilesSize(parsedFiles);
             if (bytesToMb(size) <= maxSize) {
-                setFiles(parsedFiles);
+                setFiles(files)
                 setValidation({ isError: false, isValid: true });
             } else {
                 setValidation({  isError: true, isValid: false });
