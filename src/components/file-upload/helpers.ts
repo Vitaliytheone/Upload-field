@@ -9,3 +9,16 @@ export const bytesToMb = (size: number) => {
 export const bytesToKb = (size: number) => {
     return size / 1000;
 }
+
+export const getUniqFiles = (stateFiles: File[], newFiles: File[]) => {
+    // if(!stateFiles.length) return 
+    console.info(stateFiles);
+    console.info(newFiles);
+    return stateFiles.filter((i) => {
+        return newFiles.forEach((q) => {
+            if(true) {
+                return i;
+            }
+        })
+    })
+}
