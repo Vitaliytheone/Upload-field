@@ -10,31 +10,19 @@ export const bytesToKb = (size: number) => {
     return size / 1000;
 }
 
-export const getUniqFiles = (stateFiles: File[], newFiles: File[]) => {
-    // if(!stateFiles.length) return newFiles;
-    console.info('state =>', stateFiles);
-    console.info('newFiles =>', newFiles)
-    const arr = [...stateFiles, ...newFiles];
-    let flags: File[] = [], output = [], l = arr.length, i;
-for( i=0; i<l; i++) {
-    if( flags[arr[i].name]) continue;
-    flags[arr[i].name] = true;
-    output.push(arr[i]);
+export const getComparedFiles = (main: File, sub: File) => {
+    return main.name === sub.name && main.size === sub.size && main.lastModified === sub.lastModified
 }
-    const uniqArr = arr.filter((v, i, a) => a.indexOf(v) === i);
-    console.info(arr)
-    console.info(uniqArr);
-    return uniqArr
-    // console.info(arr);
-    // console.info(uniq)
-    // console.info(stateFiles);
-    // console.info(newFiles);
-    // const b = stateFiles.filter((i) => {
-    //     return newFiles.map((q) => {
-    //         return i.name !== q.name
-    //     })
-    //     // return i
-    // })
-    // console.info(b)
-    // return b;
+
+export const getUniqFiles = (stateFiles: File[], newFiles: File[]) => {
+    if(!stateFiles.length) return newFiles;
+    const arr = [...stateFiles, ...newFiles];
+    let flags: File[] = [], output: File[]  = [];
+    arr.forEach((item) => {
+        if(!flags.find((fItem) => getComparedFiles(item, fItem))) {
+            flags.push(item);
+            output.push(item);
+        }
+    })
+    return output
 }
