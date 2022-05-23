@@ -5,11 +5,11 @@ import { THook } from '../type';
 export const useFilesUpdate = ({maxSize, setValidation, files, setFiles}: THook) => {
     return useCallback((droppedFiles: FileList) => {
             const parsedFiles = getFiles(droppedFiles);
-            const size = getFilesSize(parsedFiles);
-            const a = getUniqFiles(files, parsedFiles);
-            console.info(a);
+            const newFiles = getUniqFiles(files, parsedFiles);
+            const size = getFilesSize(newFiles);
+            // console.info(a);
             if (bytesToMb(size) <= maxSize) {
-                setFiles(parsedFiles)
+                setFiles(newFiles)
                 setValidation({ isError: false, isValid: true });
             } else {
                 setValidation({  isError: true, isValid: false });
