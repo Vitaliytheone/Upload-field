@@ -8,6 +8,6 @@ export const Wrapper = styled.div`
 `
 
 export const TextStyled = styled(Text)`
-    margin: 12px 0;
+    margin-top: 12px;
     font-size: 20px;
 `

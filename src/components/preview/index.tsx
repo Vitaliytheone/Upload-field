@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { bytesToKb } from "../../utils";
+import { bytesToKb, roundFloat } from "../../utils";
 import { ImagePreview, FileMetaData, PreviewContainer } from "./theme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -15,7 +15,7 @@ const Preview = ({ file, onRemove }: TPreview) => {
                 <FileMetaData isImage={isImage}>
                     <span>{name}</span>
                     <div>
-                        <span>{bytesToKb(size)} kb</span>
+                        <span>{roundFloat(bytesToKb(size))} kb</span>
                         <button onClick={onRemove(name)}>
                             <FontAwesomeIcon icon={faTrash} />
                         </button>

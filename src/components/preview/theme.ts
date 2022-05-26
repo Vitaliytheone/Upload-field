@@ -19,6 +19,7 @@ export const FileMetaData = styled.div<{isImage: boolean}>`
   color: white;
   font-weight: bold;
   background-color: rgba(5, 5, 5, 0.5);
+  word-break: break-all;
 
   div {
     margin-top: auto;
@@ -28,11 +29,11 @@ export const FileMetaData = styled.div<{isImage: boolean}>`
 `;
 
 export const PreviewContainer = styled.div`
-  width: 20%;
+  width: 60%;
   height: 120px;
   border-radius: 6px;
   box-sizing: border-box;
-  margin: 0 12px;
+  margin: 12px;
 
   &:hover {
     opacity: 0.5;
@@ -47,16 +48,12 @@ export const PreviewContainer = styled.div`
     position: relative;
   }
 
-  @media only screen and (max-width: 750px) {
-    width: 25%;
+  @media screen and (min-width: 421px) {
+      width: 40%;
   }
 
-  @media only screen and (max-width: 500px) {
-    width: 50%;
+  @media screen and (min-width: 769px) {
+      width: 25%;
   }
 
-  @media only screen and (max-width: 400px) {
-    width: 100%;
-    padding: 0 0 0.4em;
-  }
 `;
