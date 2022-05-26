@@ -56,8 +56,6 @@ const FileUpload = ({ files, setFiles, multiple = true, maxSize = 5, withTextErr
         !trigBtn && e.preventDefault();
     };
 
-    // console.info(files);
-
     return (
         <>
             <Wrapper

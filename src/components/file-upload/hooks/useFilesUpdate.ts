@@ -1,5 +1,6 @@
 import { useCallback } from "react";
-import { bytesToMb, getFiles, getFilesSize, getUniqFiles } from "../helpers";
+import { getFiles, getFilesSize, getUniqFiles } from "../helpers";
+import { bytesToMb } from "../../../utils";
 import { THook } from '../type';
 
 export const useFilesUpdate = ({maxSize, setValidation, files, setFiles}: THook) => {
@@ -7,7 +8,6 @@ export const useFilesUpdate = ({maxSize, setValidation, files, setFiles}: THook)
             const parsedFiles = getFiles(droppedFiles);
             const newFiles = getUniqFiles(files, parsedFiles);
             const size = getFilesSize(newFiles);
-            // console.info(a);
             if (bytesToMb(size) <= maxSize) {
                 setFiles(newFiles)
                 setValidation({ isError: false, isValid: true });
