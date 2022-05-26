@@ -6,7 +6,7 @@ export type TFileUpload = {
     accept?: string;
     multiple?: boolean;
     maxSize?: number;
-    withTextError?: boolean
+    withTextError?: boolean;
 }
 
 export type TInputValidation = {

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { TPreview } from "./type";
 
-const Preview = ({ file }: TPreview) => {
+const Preview = ({ file, onRemove }: TPreview) => {
     const { name, size } = file;
     const isImage = file.type.split("/")[0] === "image";
     return (
@@ -16,7 +16,9 @@ const Preview = ({ file }: TPreview) => {
                     <span>{name}</span>
                     <div>
                         <span>{bytesToKb(size)} kb</span>
-                        <FontAwesomeIcon icon={faTrash} />
+                        <button onClick={onRemove(name)}>
+                            <FontAwesomeIcon icon={faTrash} />
+                        </button>
                     </div>
                 </FileMetaData>
             </div>
